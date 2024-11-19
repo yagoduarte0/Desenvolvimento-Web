@@ -15,36 +15,38 @@ const manipulaClick = (e) => {
     document.cookie = `id=${id}`;
     document.cookie = `altura=${e.currentTarget.dataset.altura}`;
 
-    localStorage.setItem(`id`, id);
-    localStorage.setItem(`dados`, JSON.stringify(e.currentTarget.dataset));
+    localStorage.setItem("id", id);
+    localStorage.setItem("dados", JSON.stringify(e.currentTarget.dataset));
 
-    sessionStorage.setItem(`id`, id);
-    sessionStorage.setItem(`dados`, JSON.stringify(e.currentTarget.dataset));
+    sessionStorage.setItem("id", id);
+    sessionStorage.setItem("dados", JSON.stringify(e.currentTarget.dataset));
 
     window.location = url;
 };
 
 const pega_json = async (caminho) => {
-    const resposta = await fetch(caminho);
-    const dados = await resposta.json();
-    return dados;
+    try {
+        const resposta = await fetch(caminho);
+        const dados = await resposta.json();
+        return dados;
+    } catch (err) {
+        console.error("Erro ao buscar os dados:", err);
+        alert("Erro ao carregar os jogadores.");
+        return [];
+    }
 };
 
 const montaCard = (atleta) => {
     const cartao = document.createElement("article");
     const nome = document.createElement("h1");
     const imagem = document.createElement("img");
-    const descricao = document.createElement("p");
-
-    nome.innerHTML = atleta.nome;
-    nome.style.fontFamily = 'sans-serif';
-    cartao.appendChild(nome);
+    const saibaMais = document.createElement("button");
 
     imagem.src = atleta.imagem;
     cartao.appendChild(imagem);
 
-    descricao.innerHTML = atleta.detalhes;
-    cartao.appendChild(descricao);
+    saibaMais.innerHTML = "Saiba Mais";
+    cartao.appendChild(saibaMais);
 
     cartao.onclick = manipulaClick;
 
