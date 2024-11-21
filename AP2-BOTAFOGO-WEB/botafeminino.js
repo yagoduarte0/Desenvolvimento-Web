@@ -1,4 +1,4 @@
-const dados =[
+const jogadorasFemininas = [
     {
         "id": 33,
         "url_detalhes": "https://botafogo.com.br/elenco/futebol-feminino/michelle",
